@@ -73,3 +73,38 @@ A new script `r1.py` has been added that uses DeepSeek's Reasoning Model (`deeps
 
 > **Note**: This is an experimental project developed by Skirano to test the new DeepSeek v3 API capabilities. It was developed as a rapid prototype and should be used accordingly.
 
+## Model Selector and API Configuration
+
+The application now supports selecting different models and configuring their respective APIs, including DeepSeek, OpenAI, local OpenAI compatible endpoints, and Mistral.
+
+### How to Use the Model Selector
+
+1. When you run the script (`python3 main.py`), you will be prompted to select a model:
+   - 1. DeepSeek
+   - 2. OpenAI
+   - 3. Local OpenAI Compatible Endpoint
+   - 4. Mistral
+
+2. Enter the number corresponding to your choice.
+
+3. The application will configure the client with the appropriate API key and base URL based on your selection.
+
+### Configuring Different APIs
+
+1. **DeepSeek**
+   - Ensure you have the `DEEPSEEK_API_KEY` set in your `.env` file.
+   - The base URL for DeepSeek is pre-configured as `https://api.deepseek.com`.
+
+2. **OpenAI**
+   - Ensure you have the `OPENAI_API_KEY` set in your `.env` file.
+   - The base URL for OpenAI is pre-configured as `https://api.openai.com`.
+
+3. **Local OpenAI Compatible Endpoint**
+   - Ensure you have the `LOCAL_OPENAI_API_KEY` and `LOCAL_OPENAI_BASE_URL` set in your `.env` file.
+   - The base URL should point to your local OpenAI compatible endpoint.
+
+4. **Mistral**
+   - Ensure you have the `MISTRAL_API_KEY` set in your `.env` file.
+   - The base URL for Mistral is pre-configured as `https://api.mistral.com`.
+
+By following these steps, you can easily switch between different APIs and leverage the capabilities of each within the same application.

@@ -21,10 +21,49 @@ console = Console()
 # 1. Configure OpenAI client and load environment variables
 # --------------------------------------------------------------------------------
 load_dotenv()  # Load environment variables from .env file
+
+def select_model():
+    """Prompt the user to select a model and return the corresponding API key and base URL."""
+    console.print("Select a model:")
+    console.print("1. DeepSeek")
+    console.print("2. OpenAI")
+    console.print("3. Local OpenAI Compatible Endpoint")
+    console.print("4. Mistral")
+    
+    choice = console.input("Enter the number of your choice: ").strip()
+    
+    if choice == "1":
+        return {
+            "api_key": os.getenv("DEEPSEEK_API_KEY"),
+            "base_url": "https://api.deepseek.com"
+        }
+    elif choice == "2":
+        return {
+            "api_key": os.getenv("OPENAI_API_KEY"),
+            "base_url": "https://api.openai.com"
+        }
+    elif choice == "3":
+        return {
+            "api_key": os.getenv("LOCAL_OPENAI_API_KEY"),
+            "base_url": os.getenv("LOCAL_OPENAI_BASE_URL")
+        }
+    elif choice == "4":
+        return {
+            "api_key": os.getenv("MISTRAL_API_KEY"),
+            "base_url": "https://api.mistral.com"
+        }
+    else:
+        console.print("[red]Invalid choice. Defaulting to DeepSeek.[/red]")
+        return {
+            "api_key": os.getenv("DEEPSEEK_API_KEY"),
+            "base_url": "https://api.deepseek.com"
+        }
+
+model_config = select_model()
 client = OpenAI(
-    api_key=os.getenv("DEEPSEEK_API_KEY"),
-    base_url="https://api.deepseek.com"
-)  # Configure for DeepSeek API
+    api_key=model_config["api_key"],
+    base_url=model_config["base_url"]
+)
 
 # --------------------------------------------------------------------------------
 # 2. Define our schema using Pydantic for type safety
@@ -107,6 +146,8 @@ system_PROMPT = dedent("""\
     7. Suggest tests or validation steps when appropriate
 
     Remember: You're a senior engineer - be thorough, precise, and thoughtful in your solutions.
+
+    Note: You can use different APIs including DeepSeek, OpenAI, and local OpenAI compatible endpoints.
 """)
 
 # --------------------------------------------------------------------------------
